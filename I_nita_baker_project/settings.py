@@ -79,8 +79,9 @@ WSGI_APPLICATION = 'I_nita_baker_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'I_nita_baker_app',
+        'NAME': 'i_nita_baker_app',
         'USER': 'admin3',
+        'PASSWORD': '#OzzieD28',
         'HOST': 'localhost'
     }
 }
