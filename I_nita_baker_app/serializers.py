@@ -14,7 +14,7 @@ class ReviewsSerializer(serializers.ModelSerializer):
         
 
 class RecipesSerializer(serializers.ModelSerializer):
-    reviews = RecipesSerializer(many=True, read_only=True)
+    reviews = ReviewsSerializer(many=True, read_only=True)
 
     class Meta:
         model = Recipes
