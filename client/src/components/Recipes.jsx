@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default class Recipes extends Component {
   state = {
-    recipeList: [],
+    recipesList: [],
     newRecipeName: "",
     ingredients: "",
     instructions: "",
@@ -13,12 +13,15 @@ export default class Recipes extends Component {
     reviews: []
   };
   componentDidMount() {
+    console.log("Recipes component mouned");
     this.updateRecipesPage();
   }
 
   updateRecipesPage = () => {
-    axios.get("/api/recipes").then(res => {
-      this.setState({ recipeList: res.data });
+    axios.get("/api/v1/recipes/").then(res => {
+      console.log("/api/v1/recipes/", res.data);
+      this.setState({ recipesList: res.data });
+      console.log("res.data", res.data);
     });
   };
   createRecipes = () => {
@@ -26,16 +29,14 @@ export default class Recipes extends Component {
       name: this.state.newRecipeName,
       ingredients: this.state.ingredients,
       instructions: this.state.instructions,
-      ratings: this.state.ratings,
       time: this.state.time,
       picture_url: this.state.picture_url
     };
-    axios.post("/api/v1/recipes", newRecipes).then(() => {
+    axios.post("/api/v1/recipes/", newRecipes).then(() => {
       const newState = { ...this.state };
       newState.newRecipeName = "";
       newState.ingredients = "";
       newState.instructions = "";
-      newState.ratings = "";
       newState.time = "";
       this.setState(newState);
       this.updateRecipesPage();
@@ -48,45 +49,41 @@ export default class Recipes extends Component {
   };
 
   render() {
-    const recipeList =
-      this.state.recipeList &&
-      this.state.recipeList.map((recipes, i) => {
+    const recipesList =
+      this.state.recipesList &&
+      this.state.recipesList.map((recipes, i) => {
         return (
           <div className="recipes-container" key={i}>
             <div>
               <h1>
                 <Link
                   style={{ textDecoration: "none" }}
-                  to={`/recipes/${recipes._id}`}
+                  to={`/recipes/${recipes.id}`}
                 >
-                  Name: {recipes.name}
+                  {recipes.name}
                 </Link>
               </h1>
             </div>
-            <img
-              className="recipes-img"
-              src={recipes.picture_url}
-              alt="recipes image"
-            />
             <div>
-              <h2>
-                ingredients: <br />
-                {recipes.ingredients}
-              </h2>
+                <img src={recipes.picture_url} alt="recipe img"/>
+            </div>
+            <div>
+                <h2>{recipes.time}</h2>
             </div>
           </div>
         );
       });
     return (
+        
       <div>
-        <div className="recipes-input">
+          <div className="recipes-input">
           <input
             type="string"
-            name="newRecipeName"
+            name="newRecipesName"
             placeholder="Recipes Name"
             required="required"
             onChange={this.handleChange}
-            value={this.state.newRecipeName}
+            value={this.state.newRecipesName}
           />
           <input
             type="string"
@@ -99,7 +96,7 @@ export default class Recipes extends Component {
           <input
             type="string"
             name="instructions"
-            placeholder="Services"
+            placeholder="instructions"
             required="required"
             onChange={this.handleChange}
             value={this.state.instructions}
@@ -108,7 +105,7 @@ export default class Recipes extends Component {
           <input
             type="string"
             name="time"
-            placeholder="time"
+            placeholder="Duration"
             required="required"
             onChange={this.handleChange}
             value={this.state.time}
@@ -116,24 +113,17 @@ export default class Recipes extends Component {
           <input
             type="string"
             name="picture_url"
-            placeholder="Add picture_url"
+            placeholder="Add picture"
             required="required"
             onChange={this.handleChange}
             value={this.state.picture_url}
           />
           <button onClick={this.createRecipes}>Add Recipes</button>
         </div>
-
-        <div
-          className="recipesParent"
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            flexWrap: "wrap"
-          }}
-        >
-          {recipeList}
-        </div>
+        <h1>
+          HELLO FROM RECIPE
+          {recipesList}
+        </h1>
       </div>
     );
   }
