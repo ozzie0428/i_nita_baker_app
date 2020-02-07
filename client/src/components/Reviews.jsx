@@ -20,24 +20,8 @@ export default class Reviews extends Component {
 
       commentList.push(res.data);
       this.setState({ commentList: commentList });
+      console.log('reviews data', res.data)
     });
-  };
-  createReviews = () => {
-    const recipesId = this.props.match.params.recipesId;
-    const newReviews = {
-      difficulty: this.state.difficulty,
-      tastiness: this.state.tastiness
-    };
-    axios
-      .put(`/api/v1/reviews/${recipesId}`, newReviews)
-      .then(res => {
-        const newComment = res.data.createdReviews;
-        let copyOfComments = [...this.state.commentList];
-        copyOfComments.push(newComment);
-        this.setState({ commentList: copyOfComments });
-        this.resetState();
-      })
-      .catch(error => console.log("post reviews error", error.message));
   };
 
   resetState() {
@@ -64,7 +48,8 @@ export default class Reviews extends Component {
             </div>;
       });
 
-    console.log("state", this.state.commentList);
+    // console.log("state", this.state.commentList);
+    console.log("state name", this.state.commentList.name)
     return (
       <div>
         <div className="reviews-submit">
@@ -80,7 +65,7 @@ export default class Reviews extends Component {
           <div className="reviews-container">
             <div className="reviews-btn">
               <a href={`/recipes/${this.props.match.params.recipesId}`}>
-                Back To recipes
+                {`back to ${this.props.match.params.recipesId}`}
               </a>
             </div>
             

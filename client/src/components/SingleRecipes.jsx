@@ -94,19 +94,14 @@ export default class SingleRecipes extends Component {
           </div>
         </div>
         <div className="recipes-review">
-        <h1>Reviews</h1>
-          <h2>Tastiness: <strong>{this.state.tastinessArray}</strong></h2>
-          <h2>Difficulty: <strong>{this.state.difficultyArray}</strong> </h2>
           <Link to={`/reviews/${this.state.recipes.id}`}>
-            <button>Leave Review</button>
+            <button>See Reviews</button>
             <div className="delete-recipes">
-              <button
-                onClick={() => this.RecipesDelete()}
-              >
-                Delete Recipes
-              </button>
             </div>
           </Link>
+          <a href={`/recipes/`}>
+                Back To All Recipes
+              </a>
         </div>
       </div>
     );
