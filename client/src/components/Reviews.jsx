@@ -58,7 +58,10 @@ export default class Reviews extends Component {
     const commentList =
       this.state.commentList &&
       this.state.commentList.map((reviews, i) => {
-        return <div key={i}>Review Comment: {reviews.name}</div>;
+        return <div key={i}>Review Comment: {reviews.name}
+            <div>Tastiness: {reviews.tastiness}</div>
+            <div>Difficulty: {reviews.difficulty}</div>
+            </div>;
       });
 
     console.log("state", this.state.commentList);
@@ -80,42 +83,7 @@ export default class Reviews extends Component {
                 Back To recipes
               </a>
             </div>
-            <div className="reviews-input">
-              <div>
-                <h3>Tastiness : {this.state.tastiness} </h3>
-                <input
-                  type="string"
-                  name="tastiness"
-                  placeholder="Rate Tastiness"
-                  required="required"
-                  onChange={this.handleChange}
-                  value={this.state.tastiness}
-                />
-              </div>
-              <div>
-                <h3>Difficulty : {this.state.difficulty}</h3>
-                <input
-                  type="string"
-                  name="difficulty"
-                  placeholder="Rate Difficulty"
-                  required="required"
-                  onChange={this.handleChange}
-                  value={this.state.difficulty}
-                />
-              </div>
-              <div>
-                <h3>Time :</h3>
-                <input
-                  type="string"
-                  name="time"
-                  placeholder="Leave Time"
-                  required="required"
-                  onChange={this.handleChange}
-                  value={this.state.time}
-                />
-              </div>
-              <button onClick={this.createReviews}>Submit Comment</button>
-            </div>
+            
           </div>
         </div>
       </div>
