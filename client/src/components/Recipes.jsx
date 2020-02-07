@@ -9,7 +9,8 @@ export default class Recipes extends Component {
     ingredients: "",
     instructions: "",
     time: "",
-    picture_url: "",
+    picture_url:
+      "https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTk1Mjc4Mi9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTU4MTc2OTUxOH0.aTydxWC1zNp-PPN072BQWxzhJxLqmO-4mOX2fwrwWM0/img.jpg?width=980&height=504",
     reviews: []
   };
   componentDidMount() {
@@ -21,26 +22,23 @@ export default class Recipes extends Component {
     axios.get("/api/v1/recipes/").then(res => {
       console.log("/api/v1/recipes/", res.data);
       this.setState({ recipesList: res.data });
-      console.log("res.data", res.data);
     });
   };
-  createRecipes = () => {
+  createRecipes = async () => {
+
     const newRecipes = {
       name: this.state.newRecipeName,
+      time: this.state.time,
       ingredients: this.state.ingredients,
       instructions: this.state.instructions,
-      time: this.state.time,
       picture_url: this.state.picture_url
     };
-    axios.post("/api/v1/recipes/", newRecipes).then(() => {
-      const newState = { ...this.state };
-      newState.newRecipeName = "";
-      newState.ingredients = "";
-      newState.instructions = "";
-      newState.time = "";
-      this.setState(newState);
-      this.updateRecipesPage();
-    });
+    try {
+      const response = await axios.post("api/v1/recipes/", newRecipes);
+      console.log("TCL: Recipes -> createRecipes -> response", response);
+    } catch (error) {
+      console.log("TCL: Recipes -> createRecipes -> error", error.message);
+    }
   };
 
   handleChange = event => {
@@ -65,25 +63,24 @@ export default class Recipes extends Component {
               </h1>
             </div>
             <div>
-                <img src={recipes.picture_url} alt="recipe img"/>
+              <img src={recipes.picture_url} alt="recipe img" />
             </div>
             <div>
-                <h2>{recipes.time}</h2>
+              <h2>{recipes.time}</h2>
             </div>
           </div>
         );
       });
     return (
-        
       <div>
-          <div className="recipes-input">
+        <div className="recipes-input">
           <input
             type="string"
-            name="newRecipesName"
+            name="newRecipeName"
             placeholder="Recipes Name"
             required="required"
             onChange={this.handleChange}
-            value={this.state.newRecipesName}
+            value={this.state.newRecipeName}
           />
           <input
             type="string"

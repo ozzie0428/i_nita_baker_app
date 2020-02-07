@@ -9,6 +9,8 @@ export default class SingleRecipes extends Component {
       _id: null
     },
     recipesList: [],
+    tastinessArray: [],
+    difficultyArray: [],
     updateRecipesName: "",
     ingredients: "",
     instructions: "",
@@ -16,7 +18,8 @@ export default class SingleRecipes extends Component {
     time: "",
     isDeleted: false,
     reviews: [],
-    picture_url_url: ""
+    picture_url_url: "",
+   
   };
 
   componentDidMount() {
@@ -26,7 +29,7 @@ export default class SingleRecipes extends Component {
   singleRecipes = () => {
     const recipesId = this.props.match.params.recipesId;
     console.log("recipesId", recipesId);
-    axios.get(`/api/v1/recipes/${recipesId}/`).then(res => {
+    axios.get(`/api/v1/recipes/${recipesId}`).then(res => {
       console.log("single recipe res.data", res.data);
       this.setState({
         recipes: res.data
@@ -34,8 +37,29 @@ export default class SingleRecipes extends Component {
       console.log("single recipe res.data", res.data);
     });
   };
+  singleRecipesReviews = async () => {
+    const recipesId = this.props.match.params.recipesId;
+    let tastinessArray = [];
+    let difficultyArray = [];
 
-  RecipesDelete = recipesId => {
+    try {
+      const response = await axios.get(`/api/v1/reviews/${recipesId}`);
+      const allReviews = response.data;
+      allReviews.forEach(review => {
+        tastinessArray.push(review.tastiness);
+        difficultyArray.push(review.difficulty);
+      });
+
+      
+
+      this.setState({ tastinessArray, difficultyArray});
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  RecipesDelete = () => {
+    const recipesId = this.props.match.params.recipesId;
     axios.delete(`/api/recipes/${recipesId}`).then(res => {
       console.log("response", res.data);
       this.setState({ isDeleted: true });
@@ -50,7 +74,7 @@ export default class SingleRecipes extends Component {
     return (
       <div className="single-recipes-container">
         <div className="baber-info">
-          <h1>Name: {this.state.recipes.name}</h1>
+          <h1> {this.state.recipes.name}</h1>
           <img
             className="single-recipes-img"
             src={this.state.recipes.picture_url}
@@ -65,16 +89,19 @@ export default class SingleRecipes extends Component {
               <h2>
                 Time: 
               </h2>
-              <p><strong> {this.state.recipes.time}</strong></p>
+              <p> {this.state.recipes.time}</p>
             </div>
           </div>
         </div>
         <div className="recipes-review">
-          <Link to={`/review/${this.state.recipes._id}`}>
+        <h1>Reviews</h1>
+          <h2>Tastiness: <strong>{this.state.tastinessArray}</strong></h2>
+          <h2>Difficulty: <strong>{this.state.difficultyArray}</strong> </h2>
+          <Link to={`/reviews/${this.state.recipes.id}`}>
             <button>Leave Review</button>
             <div className="delete-recipes">
               <button
-                onClick={() => this.RecipesDelete(this.state.recipes._id)}
+                onClick={() => this.RecipesDelete()}
               >
                 Delete Recipes
               </button>
