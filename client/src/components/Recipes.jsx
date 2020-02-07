@@ -62,8 +62,8 @@ export default class Recipes extends Component {
                 </Link>
               </h1>
             </div>
-            <div>
-              <img src={recipes.picture_url} alt="recipe img" />
+            <div className="recipe-img">
+              <img src={recipes.picture_url} alt="recipe img" width='350px'/>
             </div>
             <div>
               <h2>{recipes.time}</h2>
@@ -117,10 +117,19 @@ export default class Recipes extends Component {
           />
           <button onClick={this.createRecipes}>Add Recipes</button>
         </div>
-        <h1>
-          HELLO FROM RECIPE
+        <div
+          className="barberParent"
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexWrap: "wrap"
+          }}
+          >
+          
           {recipesList}
-        </h1>
+        </div>
+        
+          
       </div>
     );
   }
