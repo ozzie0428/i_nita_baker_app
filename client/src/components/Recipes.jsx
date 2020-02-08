@@ -9,8 +9,7 @@ export default class Recipes extends Component {
     ingredients: "",
     instructions: "",
     time: "",
-    picture_url:
-      "https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTk1Mjc4Mi9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTU4MTc2OTUxOH0.aTydxWC1zNp-PPN072BQWxzhJxLqmO-4mOX2fwrwWM0/img.jpg?width=980&height=504",
+    picture_url: "",
     reviews: []
   };
   componentDidMount() {

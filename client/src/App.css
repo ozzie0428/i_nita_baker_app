@@ -26,3 +26,18 @@
   height: auto;
   padding-left: 5%;
 }
+
+.single-recipes-img{
+  padding-left: 30%;
+ 
+}
+
+.single-recipes-container h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.time {
+  display: grid;
+  justify-content: center;
+}

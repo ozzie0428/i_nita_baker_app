@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-image: url(https://st2.depositphotos.com/1013886/10126/i/950/depositphotos_101269192-stock-photo-healthy-food-background.jpg); */
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
 }
 
 code {

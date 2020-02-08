@@ -15,12 +15,13 @@ export default class Reviews extends Component {
   updateReviewsPage = () => {
     const recipesId = this.props.match.params.recipesId;
     axios.get(`/api/v1/reviews/${recipesId}`).then(res => {
-      console.log("TCL: Reviews -> updateReviewsPage -> res", res);
+      // console.log("TCL: Reviews -> updateReviewsPage -> res", res);
+    
       const commentList = [...this.state.commentList];
 
       commentList.push(res.data);
-      this.setState({ commentList: commentList });
-      console.log('reviews data', res.data)
+      this.setState({ commentList: commentList, name: res.data.name });
+      console.log('reviews data', res.data.name)
     });
   };
 
@@ -65,7 +66,7 @@ export default class Reviews extends Component {
           <div className="reviews-container">
             <div className="reviews-btn">
               <a href={`/recipes/${this.props.match.params.recipesId}`}>
-                {`back to ${this.props.match.params.recipesId}`}
+                {`back to ${this.state.name}`}
               </a>
             </div>
             

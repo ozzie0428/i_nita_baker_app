@@ -72,32 +72,34 @@ export default class SingleRecipes extends Component {
     }
 
     return (
-      <div className="single-recipes-container">
-        <div className="baber-info">
+      <div >
+        <div className="single-recipes-container">
           <h1> {this.state.recipes.name}</h1>
+          <div className="single-recipes-img">
+            
           <img
-            className="single-recipes-img"
             src={this.state.recipes.picture_url}
             alt="picture_url-of-recipes"
-          />
+            style={{width:"60%"}}/>
+          </div>
           <div>
             <div className="recipes-ingredients">
               <h2>Ingredients: </h2>
               <p>{this.state.recipes.ingredients}</p>
               <h2>Instructions: </h2>
               <p>{this.state.recipes.instructions}</p>
+              <div className="time">
               <h2>
                 Time: 
               </h2>
               <p> {this.state.recipes.time}</p>
+              </div>
             </div>
           </div>
         </div>
         <div className="recipes-review">
           <Link to={`/reviews/${this.state.recipes.id}`}>
-            <button>See Reviews</button>
-            <div className="delete-recipes">
-            </div>
+          <button type="button" class="btn btn-secondary btn-lg btn-block">See Reviews</button>
           </Link>
           <a href={`/recipes/`}>
                 Back To All Recipes
