@@ -18,8 +18,7 @@ export default class SingleRecipes extends Component {
     time: "",
     isDeleted: false,
     reviews: [],
-    picture_url_url: "",
-   
+    picture_url_url: ""
   };
 
   componentDidMount() {
@@ -50,9 +49,7 @@ export default class SingleRecipes extends Component {
         difficultyArray.push(review.difficulty);
       });
 
-      
-
-      this.setState({ tastinessArray, difficultyArray});
+      this.setState({ tastinessArray, difficultyArray });
     } catch (error) {
       console.log(error);
     }
@@ -72,15 +69,15 @@ export default class SingleRecipes extends Component {
     }
 
     return (
-      <div >
+      <div>
         <div className="single-recipes-container">
           <h1> {this.state.recipes.name}</h1>
           <div className="single-recipes-img">
-            
-          <img
-            src={this.state.recipes.picture_url}
-            alt="picture_url-of-recipes"
-            style={{width:"60%"}}/>
+            <img
+              src={this.state.recipes.picture_url}
+              alt="picture_url-of-recipes"
+              style={{ width: "60%" }}
+            />
           </div>
           <div>
             <div className="recipes-ingredients">
@@ -89,21 +86,19 @@ export default class SingleRecipes extends Component {
               <h2>Instructions: </h2>
               <p>{this.state.recipes.instructions}</p>
               <div className="time">
-              <h2>
-                Time: 
-              </h2>
-              <p> {this.state.recipes.time}</p>
+                <h2>Time:</h2>
+                <p> {this.state.recipes.time}</p>
               </div>
             </div>
           </div>
         </div>
         <div className="recipes-review">
           <Link to={`/reviews/${this.state.recipes.id}`}>
-          <button type="button" class="btn btn-secondary btn-lg btn-block">See Reviews</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block">
+              See Reviews
+            </button>
           </Link>
-          <a href={`/recipes/`}>
-                Back To All Recipes
-              </a>
+          <a href={`/recipes/`}>Back To All Recipes</a>
         </div>
       </div>
     );

@@ -15,13 +15,13 @@ export default class Reviews extends Component {
   updateReviewsPage = () => {
     const recipesId = this.props.match.params.recipesId;
     axios.get(`/api/v1/reviews/${recipesId}`).then(res => {
-      // console.log("TCL: Reviews -> updateReviewsPage -> res", res);
-    
+      console.log("TCL: Reviews -> updateReviewsPage -> res", res);
+
       const commentList = [...this.state.commentList];
 
       commentList.push(res.data);
       this.setState({ commentList: commentList, name: res.data.name });
-      console.log('reviews data', res.data.name)
+      console.log("reviews data", res.data.name);
     });
   };
 
@@ -43,16 +43,19 @@ export default class Reviews extends Component {
     const commentList =
       this.state.commentList &&
       this.state.commentList.map((reviews, i) => {
-        return <div key={i}>Review Comment: {reviews.name}
+        return (
+          <div key={i}>
+            Review Comment: {reviews.name}
             <div>Tastiness: {reviews.tastiness}</div>
             <div>Difficulty: {reviews.difficulty}</div>
-            </div>;
+          </div>
+        );
       });
 
-    // console.log("state", this.state.commentList);
-    console.log("state name", this.state.commentList.name)
+    console.log("state", this.state.commentList);
+    console.log("state name", this.state.commentList.name);
     return (
-      <div>
+      <div className="reviewParent">
         <div className="reviews-submit">
           <h1> REVIEWS</h1>
         </div>
@@ -69,7 +72,6 @@ export default class Reviews extends Component {
                 {`back to ${this.state.name}`}
               </a>
             </div>
-            
           </div>
         </div>
       </div>

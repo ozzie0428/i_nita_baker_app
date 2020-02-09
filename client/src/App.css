@@ -8,13 +8,14 @@
 }
  
 .recipes-container{
-  width: 28%;
-  border: 15px solid transparent;
+  width: 26.6%;
+  height: fit-content;
+  border: 15px solid;
   border-image: url(https://comps.gograph.com/food-background-pattern_gg66345602.jpg) 50 round;
 }
 
 .recipes-container h2{
-  padding-left: 30%;
+  padding-left: 21%;
 }
 
 .recipes-container h1{
@@ -39,5 +40,46 @@
 
 .time {
   display: grid;
+  justify-content: center;
+}
+
+/* .home-container{
+  background-image: url(https://i.pinimg.com/736x/53/2e/23/532e23c344e1214f28d59f640ceb58b1.jpg);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+.barberParent{
+  background-image: url(https://i.pinimg.com/736x/53/2e/23/532e23c344e1214f28d59f640ceb58b1.jpg);
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-size: contain;
+}
+
+.reviewParent{
+  background-image: url(https://i.pinimg.com/736x/53/2e/23/532e23c344e1214f28d59f640ceb58b1.jpg);
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-size: contain;
+} */
+
+.shoppingList-container{
+  display: flex;
+  justify-content: center;
+}
+
+.card{
+  width: 22rem;
+    padding-left: 9%
+}
+
+.form-row align-items-center{
+  padding-left: 30%;
+padding-top: 2%
+}
+
+.card-title{
+  display: flex;
   justify-content: center;
 }

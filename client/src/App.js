@@ -14,12 +14,13 @@ import Button from "react-bootstrap/Button";
 import {Form} from "react-bootstrap"
 import {FormControl} from "react-bootstrap"
 
+
 class App extends React.Component {
   render() {
     return (
       <div>
-      <Navbar bg="light" expand="lg">
-  <Navbar.Brand href="#home">i_Nita_Baker_App</Navbar.Brand>
+      <Navbar bg="primary" variant="dark">
+  <Navbar.Brand>i_Nita_Baker_App</Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
@@ -33,7 +34,7 @@ class App extends React.Component {
     </Nav>
     <Form inline>
       <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-success">Search</Button>
+      <Button variant="outline-light">Search</Button>
     </Form>
   </Navbar.Collapse>
 </Navbar>

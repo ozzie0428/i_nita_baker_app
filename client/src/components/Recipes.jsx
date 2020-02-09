@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 export default class Recipes extends Component {
   state = {
     recipesList: [],
@@ -24,7 +25,7 @@ export default class Recipes extends Component {
     });
   };
   createRecipes = async () => {
-
+    console.log("PLEASE WORK!!!!!!!!!!!!");
     const newRecipes = {
       name: this.state.newRecipeName,
       time: this.state.time,
@@ -38,6 +39,14 @@ export default class Recipes extends Component {
     } catch (error) {
       console.log("TCL: Recipes -> createRecipes -> error", error.message);
     }
+    const newState = { ...this.state };
+    newState.name = "";
+    newState.time = "";
+    newState.ingredients = "";
+    newState.instructions = "";
+    newState.picture_url = "";
+    this.updateRecipesPage();
+    this.setState(newState);
   };
 
   handleChange = event => {
@@ -51,84 +60,162 @@ export default class Recipes extends Component {
       this.state.recipesList.map((recipes, i) => {
         return (
           <div className="recipes-container" key={i}>
-            <div>
-              <h1>
+            <Card>
+              <Card.Title>{recipes.name}</Card.Title>
+              <Card.Img
+                src={recipes.picture_url}
+                alt="recipe img"
+                width="350px"
+              />
+              <Card.Body>
+                <Card.Text>
+                  Want to cook this delious dish? Click button below to find out
+                  how!
+                </Card.Text>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={`/recipes/${recipes.id}`}
                 >
-                  {recipes.name}
+                  <Button variant="primary" size="lg" block>
+                    View How to Make Me
+                  </Button>
                 </Link>
-              </h1>
-            </div>
-            <div className="recipe-img">
-              <img src={recipes.picture_url} alt="recipe img" width='350px'/>
-            </div>
-            <div>
-              <h2>{recipes.time}</h2>
-            </div>
+              </Card.Body>
+              <div>
+                <h3>{`Cook Time: ${recipes.time}`}</h3>
+              </div>
+            </Card>
           </div>
         );
       });
     return (
       <div>
-        <div className="recipes-input">
-          <input
-            type="string"
-            name="newRecipeName"
-            placeholder="Recipes Name"
-            required="required"
-            onChange={this.handleChange}
-            value={this.state.newRecipeName}
-          />
-          <input
-            type="string"
-            name="ingredients"
-            placeholder="Add ingredients"
-            required="required"
-            onChange={this.handleChange}
-            value={this.state.ingredients}
-          />
-          <input
-            type="string"
-            name="instructions"
-            placeholder="instructions"
-            required="required"
-            onChange={this.handleChange}
-            value={this.state.instructions}
-          />
-
-          <input
-            type="string"
-            name="time"
-            placeholder="Duration"
-            required="required"
-            onChange={this.handleChange}
-            value={this.state.time}
-          />
-          <input
-            type="string"
-            name="picture_url"
-            placeholder="Add picture"
-            required="required"
-            onChange={this.handleChange}
-            value={this.state.picture_url}
-          />
-          <button onClick={this.createRecipes}>Add Recipes</button>
-        </div>
         <div
-          className="barberParent"
+          className="form-row align-items-center"
+          style={{
+            // paddingLeft: "30%",
+            paddingTop: "2%",
+            display: "flex",
+            justifyContent: "flex-end",
+            flexWrap: "wrap-reverse"
+          }}
+        >
+          <div className="col-sm-3 my-1">
+            <label className="sr-only" for="inlineFormInputName">
+              Name
+            </label>
+
+            <input
+              type="string"
+              className="form-control"
+              name="ingredients"
+              id="inlineFormInputName"
+              placeholder="Place Ingredients Here"
+              required="required"
+              onChange={this.handleChange}
+              value={this.state.ingredients}
+            />
+          </div>
+
+          <div className="col-sm-3 my-1">
+            <label className="sr-only" for="inlineFormInputName">
+              Name
+            </label>
+
+            <input
+              type="string"
+              className="form-control"
+              name="instructions"
+              id="inlineFormInputName"
+              placeholder="Place instructions Here"
+              required="required"
+              onChange={this.handleChange}
+              value={this.state.instructions}
+            />
+          </div>
+          <div className="col-sm-3 my-1">
+            <label className="sr-only" for="inlineFormInputName">
+              Name
+            </label>
+
+            <input
+              type="string"
+              className="form-control"
+              name="time"
+              id="inlineFormInputName"
+              newShoppingListName
+              placeholder="Place Duration Here"
+              required="required"
+              onChange={this.handleChange}
+              value={this.state.time}
+            />
+          </div>
+          <div className="col-sm-3 my-1">
+            <label className="sr-only" for="inlineFormInputName">
+              Name
+            </label>
+
+            <input
+              type="string"
+              className="form-control"
+              name="picture_url"
+              id="inlineFormInputName"
+              newShoppingListName
+              placeholder="Add Picture Here"
+              required="required"
+              onChange={this.handleChange}
+              value={this.state.picture_url}
+            />
+          </div>
+          <br />
+          <div
+            className="col-sm-3 my-1"
+            style={{
+              marginRight: "13%"
+            }}
+          >
+            <label className="sr-only" for="inlineFormInputName">
+              Name
+            </label>
+            <input
+              type="string"
+              className="form-control"
+              name="newRecipeName"
+              id="inlineFormInputName"
+              placeholder="Name of Recipt"
+              required="required"
+              onChange={this.handleChange}
+              value={this.state.newRecipeName}
+            />
+          </div>
+          <div className="col-sm-3 my-1">
+            <label className="sr-only" for="inlineFormInputGroupUsername">
+              Username
+            </label>
+          </div>
+        </div>
+
+        <button
+          onClick={this.createRecipes}
+          className="btn btn-primary"
+          style={{
+            marginLeft: "48%",
+            marginBottom: "1%"
+          }}
+        >
+          Submit
+        </button>
+
+        <div
+          className="recipeParent"
           style={{
             display: "flex",
             justifyContent: "space-around",
             flexWrap: "wrap"
           }}
-          >
-          
+        >
           {recipesList}
         </div>
-        
-          
       </div>
     );
   }
