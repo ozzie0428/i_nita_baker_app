@@ -26,7 +26,7 @@ My future improvent is this app is to add a 3rd party Api to search for recipes 
 * Slack
 
 ## Wireframe / ERD
-
+![](images/erd.png)
 ![](images/recipes.png)
 ![](images/home.png)
 ![](images/shoppingList.png)
