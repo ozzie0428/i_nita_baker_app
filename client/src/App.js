@@ -8,7 +8,6 @@ import SingleRecipes from "./components/SingleRecipes";
 import Reviews from "./components/Reviews";
 import ShoppingList from "./components/ShoppingList";
 import { Navbar } from "react-bootstrap";
-import { NavDropdown } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Form } from "react-bootstrap";
