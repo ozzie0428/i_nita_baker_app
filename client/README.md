@@ -29,7 +29,7 @@ My future improvent is this app is to add a 3rd party Api to search for recipes 
 ![](images/erd.png)
 ![](images/recipes.png)
 ![](images/home.png)
-![](images/shoppingList.png)
 
 
-## [i_Nita_Baker](http://localhost:3000/)
+
+## [i_Nita_Baker](http://localhost:3001/)
