@@ -7,38 +7,46 @@ import Recipes from "./components/Recipes";
 import SingleRecipes from "./components/SingleRecipes";
 import Reviews from "./components/Reviews";
 import ShoppingList from "./components/ShoppingList";
-import {Navbar} from "react-bootstrap";
-import {NavDropdown} from "react-bootstrap";
-import {Nav} from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import {Form} from "react-bootstrap"
-import {FormControl} from "react-bootstrap"
-
+import { Form } from "react-bootstrap";
+import { FormControl } from "react-bootstrap";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-      <Navbar bg="primary" variant="dark">
-  <Navbar.Brand>i_Nita_Baker_App</Navbar.Brand>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
-      <Nav.Link href="/">Home</Nav.Link>
-      <Nav.Link href="/recipes">Recipes</Nav.Link>
-      <NavDropdown title="Shopping List" id="basic-nav-dropdown">
-        <NavDropdown.Item href="/shoppinglist">Add To Shopping List</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Reviews</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-      </NavDropdown>
-    </Nav>
-    <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-light">Search</Button>
-    </Form>
-  </Navbar.Collapse>
-</Navbar>
-      {/* <div>
+        <Navbar bg="primary" variant="dark">
+          <Navbar.Brand>i_Nita_Baker_App</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/recipes">Recipes</Nav.Link>
+              <Nav.Link href="/shoppinglist">Add To Shopping List</Nav.Link>
+              <NavDropdown title="Shopping List" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/shoppinglist">
+                  Add To Shopping List
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Reviews</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Form inline>
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+              />
+              <Button variant="outline-light">Search</Button>
+            </Form>
+          </Navbar.Collapse>
+        </Navbar>
+        {/* <div>
         <div className="nav-bar">
           <Button variant="primary">Primary</Button>
           <a href="/recipes">
