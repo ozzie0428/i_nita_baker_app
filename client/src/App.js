@@ -26,15 +26,7 @@ class App extends React.Component {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/recipes">Recipes</Nav.Link>
               <Nav.Link href="/shoppinglist">Add To Shopping List</Nav.Link>
-              <NavDropdown title="Shopping List" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/shoppinglist">
-                  Add To Shopping List
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Reviews</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-              </NavDropdown>
+              
             </Nav>
             <Form inline>
               <FormControl
