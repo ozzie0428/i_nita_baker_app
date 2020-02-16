@@ -12,7 +12,7 @@ export default class Home extends Component {
             Want some lovely recipes for your signature dish, enter our
             i_Nita_Baker Website and start browsing...
           </p>
-          <a class="btn btn-primary btn-lg" href="/recipes" role="button">
+          <a class="btn btn-primary btn-lg" href="/recipes/chicken" role="button">
             Enter Here
           </a>
         </div>

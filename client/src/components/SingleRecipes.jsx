@@ -21,56 +21,49 @@ export default class SingleRecipes extends Component {
     picture_url_url: ""
   };
 
-  componentDidMount() {
-    this.singleRecipes();
-  }
-
-  singleRecipes = () => {
-    const recipesId = this.props.match.params.recipesId;
-    console.log("recipesId", recipesId);
-    axios.get(`/api/v1/recipes/${recipesId}`).then(res => {
-      console.log("single recipe res.data", res.data);
-      this.setState({
-        recipes: res.data
-      });
-      console.log("single recipe res.data", res.data);
-    });
-  };
-  singleRecipesReviews = async () => {
-    const recipesId = this.props.match.params.recipesId;
-    let tastinessArray = [];
-    let difficultyArray = [];
-
-    try {
-      const response = await axios.get(`/api/v1/reviews/${recipesId}`);
-      const allReviews = response.data;
-      allReviews.forEach(review => {
-        tastinessArray.push(review.tastiness);
-        difficultyArray.push(review.difficulty);
-      });
-
-      this.setState({ tastinessArray, difficultyArray });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  RecipesDelete = () => {
-    const recipesId = this.props.match.params.recipesId;
-    axios.delete(`/api/recipes/${recipesId}`).then(res => {
-      console.log("response", res.data);
-      this.setState({ isDeleted: true });
-    });
-  };
-
   render() {
-    if (this.state.isDeleted === true) {
-      return <Redirect to="/recipes" />;
-    }
-
+    console.log('"prosssss---"', this.props);
     return (
       <div>
-        <div className="single-recipes-container">
+        <h1 style={{ textAlign: "center" }}>
+          {this.props.singleRecipe.recipe.label}
+        </h1>
+        <h3 style={{ textAlign: "center" }}>
+          Calories: {this.props.singleRecipe.recipe.calories.toFixed()}
+        </h3>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingBottom: "5%"
+          }}
+        >
+          <img
+            src={this.props.singleRecipe.recipe.image}
+            alt={`pic of ${this.props.singleRecipe.recipe.label}`}
+          />
+        </div>
+        <hr />
+        <div style={{ marginLeft: "2%" }}>
+          <h3>Ingredients</h3>
+        </div>
+        <div style={{ maxWidth: "18%" }}>
+          <ul
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              flexWrap: "wrap"
+            }}
+          >
+            {" "}
+            {this.props.singleRecipe.recipe.ingredientLines.map(k => {
+              return <li key={k}>{k}</li>;
+            })}
+          </ul>
+        </div>
+
+        <button onClick={() => this.props.toggle()}>BACK</button>
+        {/* <div className="single-recipes-container">
           <h1> {this.state.recipes.name}</h1>
           <div className="single-recipes-img">
             <img
@@ -99,7 +92,7 @@ export default class SingleRecipes extends Component {
             </button>
           </Link>
           <a href={`/recipes/`}>Back To All Recipes</a>
-        </div>
+        </div> */}
       </div>
     );
   }

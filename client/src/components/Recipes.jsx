@@ -3,6 +3,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
+import SingleRecipes from "./SingleRecipes";
+
 export default class Recipes extends Component {
   state = {
     recipesList: [],
@@ -11,18 +14,30 @@ export default class Recipes extends Component {
     instructions: "",
     time: "",
     picture_url: "",
-    reviews: []
+    reviews: [],
+    singleRecipe: null,
+    loading: true
   };
+
   componentDidMount() {
-    console.log("Recipes component mouned");
+    this.setState({ loading: true });
     this.updateRecipesPage();
   }
 
   updateRecipesPage = () => {
-    axios.get("/api/v1/recipes/").then(res => {
-      console.log("/api/v1/recipes/", res.data);
-      this.setState({ recipesList: res.data });
-    });
+    const APP_ID = "959e9a44";
+    const APP_KEY = "6893b109aa81707135e8d6106e22fe3c";
+
+    const search_term = this.props.match.params.search_term;
+    console.log("TCL: Recipes -> updateRecipesPage -> this.props", this.props);
+
+    axios
+      .get(
+        `https://api.edamam.com/search?q=${search_term}&app_id=${APP_ID}&app_key=${APP_KEY}`
+      )
+      .then(res => {
+        this.setState({ recipesList: res.data.hits, loading:false });
+      });
   };
   createRecipes = async () => {
     console.log("PLEASE WORK!!!!!!!!!!!!");
@@ -54,16 +69,38 @@ export default class Recipes extends Component {
     this.setState({ [event.target.name]: inputValue });
   };
 
+  toggle = () => {
+    console.log("TOGGLED THAT HOE");
+    this.setState({ singleRecipe: null });
+  };
+
   render() {
+    if (this.state.loading) {
+      return (
+        <div style={{height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"}}>
+          <Spinner
+            animation="border"
+            variant="primary"
+            style={{ width: "100px", height: "100px" }}
+          />
+        </div>
+      );
+    }
+    // console.log("this.state.singleRecipe", this.state.singleRecipe)
     const recipesList =
       this.state.recipesList &&
       this.state.recipesList.map((recipes, i) => {
+        // console.log("recipesXXXXX", recipes
+        // )
         return (
           <div className="recipes-container" key={i}>
             <Card>
-              <Card.Title>{recipes.name}</Card.Title>
+              <Card.Title>{recipes.recipe.label}</Card.Title>
               <Card.Img
-                src={recipes.picture_url}
+                src={recipes.recipe.image}
                 alt="recipe img"
                 width="350px"
               />
@@ -72,17 +109,22 @@ export default class Recipes extends Component {
                   Want to cook this delious dish? Click button below to find out
                   how!
                 </Card.Text>
-                <Link
+                {/* <Link
                   style={{ textDecoration: "none" }}
                   to={`/recipes/${recipes.id}`}
+                > */}
+                <Button
+                  variant="primary"
+                  size="lg"
+                  block
+                  onClick={() => this.setState({ singleRecipe: recipes })}
                 >
-                  <Button variant="primary" size="lg" block>
-                    View How to Make Me
-                  </Button>
-                </Link>
+                  View How to Make Me
+                </Button>
+                {/* </Link> */}
               </Card.Body>
               <div>
-                <h3>{`Cook Time: ${recipes.time}`}</h3>
+                <h3>{`Calories: ${recipes.recipe.calories.toFixed()}`}</h3>
               </div>
             </Card>
           </div>
@@ -90,132 +132,25 @@ export default class Recipes extends Component {
       });
     return (
       <div>
-        <div
-          className="form-row align-items-center"
-          style={{
-            // paddingLeft: "30%",
-            paddingTop: "2%",
-            display: "flex",
-            justifyContent: "flex-end",
-            flexWrap: "wrap-reverse"
-          }}
-        >
-          <div className="col-sm-3 my-1">
-            <label className="sr-only" for="inlineFormInputName">
-              Name
-            </label>
+        <br />
 
-            <input
-              type="string"
-              className="form-control"
-              name="ingredients"
-              id="inlineFormInputName"
-              placeholder="Place Ingredients Here"
-              required="required"
-              onChange={this.handleChange}
-              value={this.state.ingredients}
-            />
-          </div>
-
-          <div className="col-sm-3 my-1">
-            <label className="sr-only" for="inlineFormInputName">
-              Name
-            </label>
-
-            <input
-              type="string"
-              className="form-control"
-              name="instructions"
-              id="inlineFormInputName"
-              placeholder="Place instructions Here"
-              required="required"
-              onChange={this.handleChange}
-              value={this.state.instructions}
-            />
-          </div>
-          <div className="col-sm-3 my-1">
-            <label className="sr-only" for="inlineFormInputName">
-              Name
-            </label>
-
-            <input
-              type="string"
-              className="form-control"
-              name="time"
-              id="inlineFormInputName"
-              newShoppingListName
-              placeholder="Place Duration Here"
-              required="required"
-              onChange={this.handleChange}
-              value={this.state.time}
-            />
-          </div>
-          <div className="col-sm-3 my-1">
-            <label className="sr-only" for="inlineFormInputName">
-              Name
-            </label>
-
-            <input
-              type="string"
-              className="form-control"
-              name="picture_url"
-              id="inlineFormInputName"
-              newShoppingListName
-              placeholder="Add Picture Here"
-              required="required"
-              onChange={this.handleChange}
-              value={this.state.picture_url}
-            />
-          </div>
-          <br />
+        {this.state.singleRecipe ? (
+          <SingleRecipes
+            toggle={this.toggle}
+            singleRecipe={this.state.singleRecipe}
+          />
+        ) : (
           <div
-            className="col-sm-3 my-1"
+            className="recipeParent"
             style={{
-              marginRight: "13%"
+              display: "flex",
+              justifyContent: "space-around",
+              flexWrap: "wrap"
             }}
           >
-            <label className="sr-only" for="inlineFormInputName">
-              Name
-            </label>
-            <input
-              type="string"
-              className="form-control"
-              name="newRecipeName"
-              id="inlineFormInputName"
-              placeholder="Name of Recipt"
-              required="required"
-              onChange={this.handleChange}
-              value={this.state.newRecipeName}
-            />
+            {recipesList}
           </div>
-          <div className="col-sm-3 my-1">
-            <label className="sr-only" for="inlineFormInputGroupUsername">
-              Username
-            </label>
-          </div>
-        </div>
-
-        <button
-          onClick={this.createRecipes}
-          className="btn btn-primary"
-          style={{
-            marginLeft: "48%",
-            marginBottom: "1%"
-          }}
-        >
-          Submit
-        </button>
-
-        <div
-          className="recipeParent"
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            flexWrap: "wrap"
-          }}
-        >
-          {recipesList}
-        </div>
+        )}
       </div>
     );
   }
