@@ -12,25 +12,30 @@ export default class ShoppingList extends Component {
   };
 
   componentDidMount() {
-    console.log("ShoppingList component mouned");
+    // console.log("ShoppingList component mouned");
     this.updateShoppingListPage();
   }
 
   updateShoppingListPage = () => {
     axios.get("/api/v1/shoppinglist/").then(res => {
-      console.log("/api/v1/shoppingList/", res.data);
+      // console.log("/api/v1/shoppingList/", res.data);
       this.setState({ shoppingListList: res.data });
     });
   };
   checkItem = value => {
-    const ingredientsList = [...this.state.checkboxlist];
-    ingredientsList.push(value);
-    //   this.state.ingredientsList.push(this.props.singleRecipe.recipe.ingredientLines)
-    //  console.log("ADD TO CART")
+    let ingredientsList = this.state.checkboxlist;
+    if (!ingredientsList.includes(value)) {
+      ingredientsList.push(value);
+    } else {
+      const index = ingredientsList.indexOf(value);
+      ingredientsList.splice(index, 1);
+    }
+
     this.setState({ checkboxlist: ingredientsList });
   };
+
   createShoppingList = async () => {
-    console.log("WORK YOU FUCKER!!");
+    // console.log("WORK YOU FUCKER!!");
     const newShoppingList = {
       name: this.state.newShoppingListName,
       price: this.state.price,
@@ -65,22 +70,59 @@ export default class ShoppingList extends Component {
   };
 
   render() {
-    console.log("checked items", this.state.checkboxlist);
+    console.log("yo", this.state.checkboxlist);
+
     const shoppingListList =
       this.state.shoppingListList &&
       this.state.shoppingListList.map((shoppingList, i) => {
+        // const checkedValues = this.state.checkboxlist.length;
+        // console.log("this.state.checkboxlist", this.state.checkboxlist);
+        let checked;
+
+        // // if (this.state.checkboxlist.includes(shoppingList.name) === true) {
+        // //   checked = true;
+        // // } else {
+        // //   checked = false;
+        // // }
+        // // function contains(a, obj) {
+        // for (var i = 0; i < checkedValues.length; i++) {
+        //   if (checkedValues[i] === shoppingList.name) {
+        //     checked = true;
+        //   } else {
+        //     checked = false;
+        //   }
+        // }
+
+        // }
         return (
-          <div>
+          <div key={i}>
             {/* {shoppingList.name} */}
-            <InputGroup className="mb-3">
+
+            <li style={{ listStyleType: "none" }}>
+              <input
+                onChange={() => this.checkItem(shoppingList.name)}
+                type="checkbox"
+                checked={this.state.checkboxlist.includes(shoppingList.name)}
+                value={shoppingList.name}
+                // id={`item-${id}`}
+              />
+              <label
+                style={{
+                  textDecoration: this.state.checkboxlist.includes(
+                    shoppingList.name
+                  )
+                    ? "line-through"
+                    : null
+                }}
+              >
+                {shoppingList.name}
+              </label>
+            </li>
+            {/* <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Checkbox
                   aria-label="Checkbox for following text input"
-                  checked={
-                    this.state.checkboxlist.indexOf(shoppingList.name) !== -1
-                      ? true
-                      : false
-                  }
+                  // checked={checked}
                   //     if(fruits.indexOf("Mango") !== -1){
                   //     alert("Value exists!")
                   // } else{
@@ -94,7 +136,7 @@ export default class ShoppingList extends Component {
                 aria-label="Text input with checkbox"
                 value={shoppingList.name}
               />
-            </InputGroup>
+            </InputGroup> */}
             {/* {` $${shoppingList.price}`} */}
           </div>
         );
@@ -110,15 +152,12 @@ export default class ShoppingList extends Component {
             }}
           >
             <div className="col-sm-3 my-1">
-              <label className="sr-only" for="inlineFormInputName">
-                Name
-              </label>
+              <label className="sr-only">Name</label>
               <input
                 type="string"
                 className="form-control"
                 name="newShoppingListName"
                 id="inlineFormInputName"
-                newShoppingListName
                 placeholder="Name of Ingredient"
                 required="required"
                 onChange={this.handleChange}
@@ -126,9 +165,7 @@ export default class ShoppingList extends Component {
               />
             </div>
             <div className="col-sm-3 my-1">
-              <label className="sr-only" for="inlineFormInputGroupUsername">
-                Username
-              </label>
+              <label className="sr-only">Username</label>
               <div className="input-group">
                 <div className="input-group-prepend">
                   <div className="input-group-text">$</div>
