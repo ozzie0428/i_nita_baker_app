@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import { Table, InputGroup, FormControl } from "react-bootstrap";
+
 export default class ShoppingList extends Component {
   state = {
     shoppingListList: [],
     newShoppingListName: "",
     picture_url: "",
-    price: ""
+    price: "",
+    checkboxlist: []
   };
 
   componentDidMount() {
@@ -20,7 +22,13 @@ export default class ShoppingList extends Component {
       this.setState({ shoppingListList: res.data });
     });
   };
-
+  checkItem = value => {
+    const ingredientsList = [...this.state.checkboxlist];
+    ingredientsList.push(value);
+    //   this.state.ingredientsList.push(this.props.singleRecipe.recipe.ingredientLines)
+    //  console.log("ADD TO CART")
+    this.setState({ checkboxlist: ingredientsList });
+  };
   createShoppingList = async () => {
     console.log("WORK YOU FUCKER!!");
     const newShoppingList = {
@@ -57,12 +65,36 @@ export default class ShoppingList extends Component {
   };
 
   render() {
+    console.log("checked items", this.state.checkboxlist);
     const shoppingListList =
       this.state.shoppingListList &&
       this.state.shoppingListList.map((shoppingList, i) => {
         return (
           <div>
-            {shoppingList.name}
+            {/* {shoppingList.name} */}
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Checkbox
+                  aria-label="Checkbox for following text input"
+                  checked={
+                    this.state.checkboxlist.indexOf(shoppingList.name) !== -1
+                      ? true
+                      : false
+                  }
+                  //     if(fruits.indexOf("Mango") !== -1){
+                  //     alert("Value exists!")
+                  // } else{
+                  //     alert("Value does not exists!")
+                  // }}
+                  value={shoppingList.name}
+                  onClick={e => this.checkItem(e.target.value)}
+                />
+              </InputGroup.Prepend>
+              <FormControl
+                aria-label="Text input with checkbox"
+                value={shoppingList.name}
+              />
+            </InputGroup>
             {/* {` $${shoppingList.price}`} */}
           </div>
         );
