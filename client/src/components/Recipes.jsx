@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Spinner } from "react-bootstrap";
@@ -29,7 +29,7 @@ export default class Recipes extends Component {
     const APP_KEY = "6893b109aa81707135e8d6106e22fe3c";
 
     const search_term = this.props.match.params.search_term;
-    console.log("TCL: Recipes -> updateRecipesPage -> this.props", this.props);
+    // console.log("TCL: Recipes -> updateRecipesPage -> this.props", this.props);
 
     axios
       .get(
@@ -39,30 +39,30 @@ export default class Recipes extends Component {
         this.setState({ recipesList: res.data.hits, loading:false });
       });
   };
-  createRecipes = async () => {
-    console.log("PLEASE WORK!!!!!!!!!!!!");
-    const newRecipes = {
-      name: this.state.newRecipeName,
-      time: this.state.time,
-      ingredients: this.state.ingredients,
-      instructions: this.state.instructions,
-      picture_url: this.state.picture_url
-    };
-    try {
-      const response = await axios.post("api/v1/recipes/", newRecipes);
-      console.log("TCL: Recipes -> createRecipes -> response", response);
-    } catch (error) {
-      console.log("TCL: Recipes -> createRecipes -> error", error.message);
-    }
-    const newState = { ...this.state };
-    newState.name = "";
-    newState.time = "";
-    newState.ingredients = "";
-    newState.instructions = "";
-    newState.picture_url = "";
-    this.updateRecipesPage();
-    this.setState(newState);
-  };
+  // createRecipes = async () => {
+  //   console.log("PLEASE WORK!!!!!!!!!!!!");
+  //   const newRecipes = {
+  //     name: this.state.newRecipeName,
+  //     time: this.state.time,
+  //     ingredients: this.state.ingredients,
+  //     instructions: this.state.instructions,
+  //     picture_url: this.state.picture_url
+  //   };
+  //   try {
+  //     const response = await axios.post("api/v1/recipes/", newRecipes);
+  //     console.log("TCL: Recipes -> createRecipes -> response", response);
+  //   } catch (error) {
+  //     console.log("TCL: Recipes -> createRecipes -> error", error.message);
+  //   }
+  //   const newState = { ...this.state };
+  //   newState.name = "";
+  //   newState.time = "";
+  //   newState.ingredients = "";
+  //   newState.instructions = "";
+  //   newState.picture_url = "";
+  //   this.updateRecipesPage();
+  //   this.setState(newState);
+  // };
 
   handleChange = event => {
     const inputValue = event.target.value;
@@ -70,7 +70,7 @@ export default class Recipes extends Component {
   };
 
   toggle = () => {
-    console.log("TOGGLED THAT HOE");
+    // console.log("TOGGLED THAT HOE");
     this.setState({ singleRecipe: null });
   };
 
@@ -93,8 +93,7 @@ export default class Recipes extends Component {
     const recipesList =
       this.state.recipesList &&
       this.state.recipesList.map((recipes, i) => {
-        // console.log("recipesXXXXX", recipes
-        // )
+        // console.log("recipesXXXXX", recipes )
         return (
           <div className="recipes-container" key={i}>
             <Card>
@@ -119,7 +118,7 @@ export default class Recipes extends Component {
                   block
                   onClick={() => this.setState({ singleRecipe: recipes })}
                 >
-                  View How to Make Me
+                  View Ingredients
                 </Button>
                 {/* </Link> */}
               </Card.Body>

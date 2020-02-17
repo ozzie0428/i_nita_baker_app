@@ -30,7 +30,7 @@ export default class ShoppingList extends Component {
     };
     try {
       const response = await axios.post(
-        "api/v1/shoppinglist/",
+        "/api/v1/shoppinglist/",
         newShoppingList
       );
       console.log(
@@ -63,7 +63,7 @@ export default class ShoppingList extends Component {
         return (
           <div>
             {shoppingList.name}
-            {` $${shoppingList.price}`}
+            {/* {` $${shoppingList.price}`} */}
           </div>
         );
       });

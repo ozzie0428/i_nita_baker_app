@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import ShoppingList from "./ShoppingList";
 
 export default class SingleRecipes extends Component {
   state = {
@@ -9,20 +10,45 @@ export default class SingleRecipes extends Component {
       _id: null
     },
     recipesList: [],
-    tastinessArray: [],
-    difficultyArray: [],
-    updateRecipesName: "",
     ingredients: "",
-    instructions: "",
-    ratings: "",
     time: "",
     isDeleted: false,
-    reviews: [],
+    ingredientsList: [],
     picture_url_url: ""
+  };
+  addToList = value => {
+    const ingredientsList = [...this.state.ingredientsList];
+    ingredientsList.push(value);
+    //   this.state.ingredientsList.push(this.props.singleRecipe.recipe.ingredientLines)
+    //  console.log("ADD TO CART")
+    this.setState({ ingredientsList: ingredientsList });
+  };
+
+  createShoppingList = async () => {
+    // console.log("WORK YOU FUCKER!!");
+    // console.log("GOING TO SHOPPING LIST", this.state.ingredientsList);
+    const items = [...this.state.ingredientsList];
+    for (let i = 0; i < items.length; i++) {
+      const newShoppingList = {
+        name: items[i],
+        price: "0.00"
+      };
+
+      try {
+        const response = await axios.post(
+          "/api/v1/shoppinglist/",
+          newShoppingList
+        );
+      } catch (error) {
+        console.log(
+          "TCL: ShoppingList -> createShoppingList -> error",
+          error.message
+        );
+      }
+    }
   };
 
   render() {
-    console.log('"prosssss---"', this.props);
     return (
       <div>
         <h1 style={{ textAlign: "center" }}>
@@ -56,13 +82,27 @@ export default class SingleRecipes extends Component {
             }}
           >
             {" "}
-            {this.props.singleRecipe.recipe.ingredientLines.map(k => {
-              return <li key={k}>{k}</li>;
-            })}
+            {this.props.singleRecipe.recipe.ingredientLines.map(
+              (ingredient_item, index) => {
+                return (
+                  <div key={index}>
+                    <li>{ingredient_item}</li>
+
+                    <button onClick={() => this.addToList(ingredient_item)}>
+                      Add to Shopping List
+                    </button>
+                    {/* <ShoppingList/> */}
+                  </div>
+                );
+              }
+            )}
           </ul>
         </div>
 
         <button onClick={() => this.props.toggle()}>BACK</button>
+        <button onClick={() => this.createShoppingList()}>
+          ADD TO SHOPPING LIST{" "}
+        </button>
         {/* <div className="single-recipes-container">
           <h1> {this.state.recipes.name}</h1>
           <div className="single-recipes-img">
