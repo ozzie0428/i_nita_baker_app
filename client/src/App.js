@@ -41,7 +41,7 @@ class App extends React.Component {
             <Nav className="mr-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/recipes/chicken">Recipes</Nav.Link>
-              <Nav.Link href="/shoppinglist">Add To Shopping List</Nav.Link>
+              <Nav.Link href="/shoppinglist">Shopping List</Nav.Link>
             </Nav>
             <Form
               inline

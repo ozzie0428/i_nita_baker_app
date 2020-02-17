@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import axios from "axios";
 // import { Link } from "react-router-dom";
 import ShoppingList from "./ShoppingList";
+import { Button } from "react-bootstrap";
+import Swal from 'sweetalert2'
 
 export default class SingleRecipes extends Component {
   state = {
@@ -22,6 +24,15 @@ export default class SingleRecipes extends Component {
     //   this.state.ingredientsList.push(this.props.singleRecipe.recipe.ingredientLines)
     //  console.log("ADD TO CART")
     this.setState({ ingredientsList: ingredientsList });
+    Swal.fire({
+      icon: 'success',
+      text: 'Ingredient Added.',
+      imageUrl: 'https://us.123rf.com/450wm/andre266/andre2661306/andre266130600007/20163761-recipe-cards-with-red-pen.jpg?ver=6',
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+    })
+    // alert("Ingredient Added")
   };
 
   createShoppingList = async () => {
@@ -37,7 +48,14 @@ export default class SingleRecipes extends Component {
       try {
         const response = await axios.post(
           "/api/v1/shoppinglist/",
-          newShoppingList
+          newShoppingList,
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Visit Shopping List When Ready',
+            showConfirmButton: false,
+            timer: 1900
+          })
         );
       } catch (error) {
         console.log(
@@ -69,28 +87,39 @@ export default class SingleRecipes extends Component {
             alt={`pic of ${this.props.singleRecipe.recipe.label}`}
           />
         </div>
+        <div style={{    display: "flex",
+    justifyContent: "center"}}>
+        <button onClick={() => this.props.toggle()} type="button" class="btn btn-outline-primary">Back To Recipes</button>
+        </div>
+          {/* <button onClick={() => this.props.toggle()}>BACK</button> */}
         <hr />
         <div style={{ marginLeft: "2%" }}>
           <h3>Ingredients</h3>
         </div>
-        <div style={{ maxWidth: "18%" }}>
+        <div style={{ maxWidth: "85%" }}>
           <ul
             style={{
-              display: "flex",
-              justifyContent: "space-around",
-              flexWrap: "wrap"
+              // display: "flex",
+              // justifyContent: "space-around",
+              // flexWrap: "wrap"
             }}
           >
             {" "}
             {this.props.singleRecipe.recipe.ingredientLines.map(
               (ingredient_item, index) => {
                 return (
-                  <div key={index}>
-                    <li>{ingredient_item}</li>
+                  <div key={index.toFixed(2)} style={{
+                    marginRight: "auto",
+                  marginLeft: "auto"
+                  }}>
+                    <li style={{paddingLeft:"2%"}}>{ingredient_item}</li>
+                    <Button onClick={() => this.addToList(ingredient_item)} variant="outline-light">
+                    ADD ME
+                    </Button>
 
-                    <button onClick={() => this.addToList(ingredient_item)}>
-                      Add to Shopping List
-                    </button>
+                    {/* <button onClick={() => this.addToList(ingredient_item)}>
+                      I want this
+                    </button> */}
                     {/* <ShoppingList/> */}
                   </div>
                 );
@@ -99,40 +128,8 @@ export default class SingleRecipes extends Component {
           </ul>
         </div>
 
-        <button onClick={() => this.props.toggle()}>BACK</button>
-        <button onClick={() => this.createShoppingList()}>
-          ADD TO SHOPPING LIST{" "}
-        </button>
-        {/* <div className="single-recipes-container">
-          <h1> {this.state.recipes.name}</h1>
-          <div className="single-recipes-img">
-            <img
-              src={this.state.recipes.picture_url}
-              alt="picture_url-of-recipes"
-              style={{ width: "60%" }}
-            />
-          </div>
-          <div>
-            <div className="recipes-ingredients">
-              <h2>Ingredients: </h2>
-              <p>{this.state.recipes.ingredients}</p>
-              <h2>Instructions: </h2>
-              <p>{this.state.recipes.instructions}</p>
-              <div className="time">
-                <h2>Time:</h2>
-                <p> {this.state.recipes.time}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="recipes-review">
-          <Link to={`/reviews/${this.state.recipes.id}`}>
-            <button type="button" class="btn btn-secondary btn-lg btn-block">
-              See Reviews
-            </button>
-          </Link>
-          <a href={`/recipes/`}>Back To All Recipes</a>
-        </div> */}
+        <button onClick={() => this.createShoppingList()} type="button" class="btn btn-primary btn-lg btn-block">ADD TO SHOPPING LIST</button>
+       
       </div>
     );
   }
