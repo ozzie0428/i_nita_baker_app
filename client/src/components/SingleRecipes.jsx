@@ -80,7 +80,7 @@ export default class SingleRecipes extends Component {
           style={{
             display: "flex",
             justifyContent: "center",
-            paddingBottom: "5%"
+            // paddingBottom: "5%"
           }}
         >
           <img
@@ -99,6 +99,7 @@ export default class SingleRecipes extends Component {
         </div>
         {/* <button onClick={() => this.props.toggle()}>BACK</button> */}
         <hr />
+        <div style={{    backgroundColor: "burlywood"}}>   
         <div style={{ marginLeft: "2%" }}>
           <h3>Ingredients</h3>
         </div>
@@ -123,10 +124,12 @@ export default class SingleRecipes extends Component {
                       ADD ME
                     </Button>
                   </div>
+                  
                 );
               }
             )}
           </ul>
+          </div>
         </div>
 
         <button
