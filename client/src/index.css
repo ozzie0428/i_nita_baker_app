@@ -5,10 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-image: url(https://i.pinimg.com/736x/53/2e/23/532e23c344e1214f28d59f640ceb58b1.jpg);
-  background-repeat: repeat;
-  background-attachment: scroll;
-  background-size: contain; */
+  background-image: url(https://image.shutterstock.com/image-photo/table-background-free-space-kitchen-260nw-1540004108.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 code {

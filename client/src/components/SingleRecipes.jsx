@@ -2,9 +2,9 @@ import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 import axios from "axios";
 // import { Link } from "react-router-dom";
-import ShoppingList from "./ShoppingList";
+// import ShoppingList from "./ShoppingList";
 import { Button } from "react-bootstrap";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default class SingleRecipes extends Component {
   state = {
@@ -25,13 +25,14 @@ export default class SingleRecipes extends Component {
     //  console.log("ADD TO CART")
     this.setState({ ingredientsList: ingredientsList });
     Swal.fire({
-      icon: 'success',
-      text: 'Ingredient Added.',
-      imageUrl: 'https://us.123rf.com/450wm/andre266/andre2661306/andre266130600007/20163761-recipe-cards-with-red-pen.jpg?ver=6',
+      icon: "success",
+      text: "Ingredient Added.",
+      imageUrl:
+        "https://us.123rf.com/450wm/andre266/andre2661306/andre266130600007/20163761-recipe-cards-with-red-pen.jpg?ver=6",
       imageWidth: 400,
       imageHeight: 200,
-      imageAlt: 'Custom image',
-    })
+      imageAlt: "Custom image"
+    });
     // alert("Ingredient Added")
   };
 
@@ -50,9 +51,9 @@ export default class SingleRecipes extends Component {
           "/api/v1/shoppinglist/",
           newShoppingList,
           Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Visit Shopping List When Ready',
+            position: "top-end",
+            icon: "success",
+            title: "Visit Shopping List When Ready",
             showConfirmButton: false,
             timer: 1900
           })
@@ -87,40 +88,40 @@ export default class SingleRecipes extends Component {
             alt={`pic of ${this.props.singleRecipe.recipe.label}`}
           />
         </div>
-        <div style={{    display: "flex",
-    justifyContent: "center"}}>
-        <button onClick={() => this.props.toggle()} type="button" class="btn btn-outline-primary">Back To Recipes</button>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            onClick={() => this.props.toggle()}
+            type="button"
+            class="btn btn-outline-primary"
+          >
+            Back To Recipes
+          </button>
         </div>
-          {/* <button onClick={() => this.props.toggle()}>BACK</button> */}
+        {/* <button onClick={() => this.props.toggle()}>BACK</button> */}
         <hr />
         <div style={{ marginLeft: "2%" }}>
           <h3>Ingredients</h3>
         </div>
         <div style={{ maxWidth: "85%" }}>
-          <ul
-            style={{
-              // display: "flex",
-              // justifyContent: "space-around",
-              // flexWrap: "wrap"
-            }}
-          >
+          <ul>
             {" "}
             {this.props.singleRecipe.recipe.ingredientLines.map(
               (ingredient_item, index) => {
                 return (
-                  <div key={index.toFixed(2)} style={{
-                    marginRight: "auto",
-                  marginLeft: "auto"
-                  }}>
-                    <li style={{paddingLeft:"2%"}}>{ingredient_item}</li>
-                    <Button onClick={() => this.addToList(ingredient_item)} variant="outline-light">
-                    ADD ME
+                  <div
+                    key={index.toFixed(2)}
+                    style={{
+                      marginRight: "auto",
+                      marginLeft: "auto"
+                    }}
+                  >
+                    <li style={{ paddingLeft: "2%" }}>{ingredient_item}</li>
+                    <Button
+                      onClick={() => this.addToList(ingredient_item)}
+                      variant="outline-light"
+                    >
+                      ADD ME
                     </Button>
-
-                    {/* <button onClick={() => this.addToList(ingredient_item)}>
-                      I want this
-                    </button> */}
-                    {/* <ShoppingList/> */}
                   </div>
                 );
               }
@@ -128,8 +129,13 @@ export default class SingleRecipes extends Component {
           </ul>
         </div>
 
-        <button onClick={() => this.createShoppingList()} type="button" class="btn btn-primary btn-lg btn-block">ADD TO SHOPPING LIST</button>
-       
+        <button
+          onClick={() => this.createShoppingList()}
+          type="button"
+          class="btn btn-primary btn-lg btn-block"
+        >
+          ADD TO SHOPPING LIST
+        </button>
       </div>
     );
   }

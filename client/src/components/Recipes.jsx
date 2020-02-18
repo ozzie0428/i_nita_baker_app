@@ -97,7 +97,14 @@ export default class Recipes extends Component {
         return (
           <div className="recipes-container" key={i}>
             <Card>
-              <Card.Title>{recipes.recipe.label}</Card.Title>
+              <Card.Title>
+              <div style={{display: "flex",
+    justifyContent: "center"}}>
+            <h3>
+              {recipes.recipe.label}
+              </h3>
+              </div>
+              </Card.Title>
               <Card.Img
                 src={recipes.recipe.image}
                 alt="recipe img"
@@ -122,7 +129,8 @@ export default class Recipes extends Component {
                 </Button>
                 {/* </Link> */}
               </Card.Body>
-              <div>
+              <div style={{display: "flex",
+    justifyContent: "center"}}>
                 <h3>{`Calories: ${recipes.recipe.calories.toFixed()}`}</h3>
               </div>
             </Card>

@@ -98,7 +98,7 @@ export default class ShoppingList extends Component {
           <div key={i}>
             {/* {shoppingList.name} */}
 
-            <li style={{ listStyleType: "none" }}>
+            <li style={{ listStyleType: "none"}}>
               <input
                 onChange={() => this.checkItem(shoppingList.name)}
                 type="checkbox"
@@ -108,6 +108,7 @@ export default class ShoppingList extends Component {
               />
               <label
                 style={{
+                  paddingLeft: "1%",
                   textDecoration: this.state.checkboxlist.includes(
                     shoppingList.name
                   )
@@ -153,7 +154,7 @@ export default class ShoppingList extends Component {
           >
             <div className="col-sm-3 my-1">
               <label className="sr-only">Name</label>
-              <input
+              {/* <input
                 type="string"
                 className="form-control"
                 name="newShoppingListName"
@@ -162,15 +163,15 @@ export default class ShoppingList extends Component {
                 required="required"
                 onChange={this.handleChange}
                 value={this.state.name}
-              />
+              /> */}
             </div>
             <div className="col-sm-3 my-1">
               <label className="sr-only">Username</label>
               <div className="input-group">
                 <div className="input-group-prepend">
-                  <div className="input-group-text">$</div>
+                  {/* <div className="input-group-text">$</div> */}
                 </div>
-                <input
+                {/* <input
                   type="string"
                   className="form-control"
                   name="price"
@@ -179,17 +180,17 @@ export default class ShoppingList extends Component {
                   required="required"
                   onChange={this.handleChange}
                   value={this.state.price}
-                />
+                /> */}
               </div>
             </div>
             <div className="col-auto my-1"></div>
             <div className="col-auto my-1">
-              <button
+              {/* <button
                 onClick={this.createShoppingList}
                 className="btn btn-primary"
               >
                 Submit
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
