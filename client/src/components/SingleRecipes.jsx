@@ -1,27 +1,16 @@
 import React, { Component } from "react";
-// import { Redirect } from "react-router-dom";
 import axios from "axios";
-// import { Link } from "react-router-dom";
-// import ShoppingList from "./ShoppingList";
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 export default class SingleRecipes extends Component {
   state = {
-    recipes: {
-      _id: null
-    },
-    recipesList: [],
     ingredients: "",
-    time: "",
-    isDeleted: false,
-    ingredientsList: [],
-    picture_url_url: ""
+    ingredientsList: []
   };
   addToList = value => {
     const ingredientsList = [...this.state.ingredientsList];
     ingredientsList.push(value);
-    //   this.state.ingredientsList.push(this.props.singleRecipe.recipe.ingredientLines)
     //  console.log("ADD TO CART")
     this.setState({ ingredientsList: ingredientsList });
     Swal.fire({
@@ -33,12 +22,10 @@ export default class SingleRecipes extends Component {
       imageHeight: 200,
       imageAlt: "Custom image"
     });
-    // alert("Ingredient Added")
   };
 
   createShoppingList = async () => {
-    // console.log("WORK YOU FUCKER!!");
-    // console.log("GOING TO SHOPPING LIST", this.state.ingredientsList);
+    console.log("GOING TO SHOPPING LIST", this.state.ingredientsList);
     const items = [...this.state.ingredientsList];
     for (let i = 0; i < items.length; i++) {
       const newShoppingList = {
@@ -68,6 +55,7 @@ export default class SingleRecipes extends Component {
   };
 
   render() {
+    console.log("single recipe props", this.props);
     return (
       <div>
         <h1 style={{ textAlign: "center" }}>
@@ -79,8 +67,7 @@ export default class SingleRecipes extends Component {
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
-            // paddingBottom: "5%"
+            justifyContent: "center"
           }}
         >
           <img
@@ -97,38 +84,36 @@ export default class SingleRecipes extends Component {
             Back To Recipes
           </button>
         </div>
-        {/* <button onClick={() => this.props.toggle()}>BACK</button> */}
         <hr />
-        <div style={{    backgroundColor: "burlywood"}}>   
-        <div style={{ marginLeft: "2%" }}>
-          <h3>Ingredients</h3>
-        </div>
-        <div style={{ maxWidth: "85%" }}>
-          <ul>
-            {" "}
-            {this.props.singleRecipe.recipe.ingredientLines.map(
-              (ingredient_item, index) => {
-                return (
-                  <div
-                    key={index.toFixed(2)}
-                    style={{
-                      marginRight: "auto",
-                      marginLeft: "auto"
-                    }}
-                  >
-                    <li style={{ paddingLeft: "2%" }}>{ingredient_item}</li>
-                    <Button
-                      onClick={() => this.addToList(ingredient_item)}
-                      variant="outline-light"
+        <div style={{ backgroundColor: "burlywood" }}>
+          <div style={{ marginLeft: "2%" }}>
+            <h3>Ingredients</h3>
+          </div>
+          <div style={{ maxWidth: "85%" }}>
+            <ul>
+              {" "}
+              {this.props.singleRecipe.recipe.ingredientLines.map(
+                (ingredient_item, index) => {
+                  return (
+                    <div
+                      key={index.toFixed(2)}
+                      style={{
+                        marginRight: "auto",
+                        marginLeft: "auto"
+                      }}
                     >
-                      ADD ME
-                    </Button>
-                  </div>
-                  
-                );
-              }
-            )}
-          </ul>
+                      <li style={{ paddingLeft: "2%" }}>{ingredient_item}</li>
+                      <Button
+                        onClick={() => this.addToList(ingredient_item)}
+                        variant="outline-light"
+                      >
+                        ADD ME
+                      </Button>
+                    </div>
+                  );
+                }
+              )}
+            </ul>
           </div>
         </div>
 

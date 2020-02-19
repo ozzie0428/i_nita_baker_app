@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/Home";
 import Recipes from "./components/Recipes";
-// import SingleRecipes from "./components/SingleRecipes";
-// import Reviews from "./components/Reviews";
 import ShoppingList from "./components/ShoppingList";
 import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
