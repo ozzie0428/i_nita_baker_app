@@ -38,7 +38,7 @@ export default class Recipes extends Component {
     console.log("TOGGLED");
     this.setState({ singleRecipe: null });
   };
-
+  
   render() {
     if (this.state.loading) {
       return (
